@@ -20,6 +20,8 @@ static NGListArray nginput;
 static int pressed_keys = 0UL; // 押しているキーのビットをたてる
 static int8_t n_pressed_keys = 0;   // 押しているキーの数
 
+# https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+
 static const int ng_key[] = {
     [KEY_A - KEY_Q] = B_A,     [KEY_B - KEY_Q] = B_B,         [KEY_C - KEY_Q] = B_C,         [KEY_D - KEY_Q] = B_D,
     [KEY_E - KEY_Q] = B_E,     [KEY_F - KEY_Q] = B_F,         [KEY_G - KEY_Q] = B_G,         [KEY_H - KEY_Q] = B_H,

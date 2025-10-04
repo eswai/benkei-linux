@@ -14,6 +14,8 @@
 #include "config.h"
 #include "oyastate.h"
 
+#include "naginata_v16.h"
+
 #define MSG_PAUSED  "\royainput:    paused."
 #define MSG_RESTART "\royainput: restarted."
 
@@ -460,7 +462,7 @@ int main(int argc, char *argv[]) {
 				oe.isRepeat = 1;
 			}
 			oe.keyCode = ie.code;
-			handle_oyayubi_event(oe);
+			handle_naginata_event(oe);
 			break;
 		}
 	}

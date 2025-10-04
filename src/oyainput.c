@@ -298,6 +298,7 @@ int main(int argc, char *argv[]) {
 	Boolean ctrl_pressed  = FALSE;
 	Boolean shift_pressed = FALSE;
 	Boolean alt_pressed   = FALSE;
+	Boolean meta_pressed = FALSE;
 	struct input_event ie;
 	OYAYUBI_EVENT oe;
 
@@ -381,6 +382,21 @@ int main(int argc, char *argv[]) {
 			}
 			write(fdo, &ie, sizeof(ie));
 			break;
+		case KEY_LEFTMETA:
+		//case KEY_LEFTMETA:
+			if (ie.value == 1) {
+				meta_pressed = TRUE;
+				on_otherkey_down(ie.code);
+			} else if (ie.value == 0) {
+				meta_pressed = FALSE;
+				if (pressing_key != 0) {
+					send_event(EV_KEY, pressing_key, 0);
+					send_event(EV_SYN, SYN_REPORT, 0);
+					pressing_key = 0;
+				}
+			}
+			write(fdo, &ie, sizeof(ie));
+			break;
 		case KEY_PAUSE:
 			if (ie.value == 1) {
 				on_otherkey_down(ie.code);
@@ -421,7 +437,7 @@ int main(int argc, char *argv[]) {
 				break;
 			}
 
-			if (shift_pressed || ctrl_pressed || alt_pressed) {
+			if (shift_pressed || ctrl_pressed || alt_pressed || meta_pressed) {
 				// CTRL DOWN -> SPACE DOWN -> CTRL UP -> SPACE UP
 				if (ie.value == 1) {
 					pressing_key = ie.code;

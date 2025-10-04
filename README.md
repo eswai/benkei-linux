@@ -22,7 +22,7 @@ MozcやAnthy、libkccなど、主要な日本語入力システムに対応し�
 
 # 起動方法
 
-    $ sudo -E oyainput [username]
+    $ sudo -E nginput [username]
 
 usernameは利用するユーザー名を指定します。  
 省略した場合は、現在のログインユーザー名になります。  

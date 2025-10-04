@@ -16,8 +16,8 @@
 
 #include "naginata_v16.h"
 
-#define MSG_PAUSED  "\royainput:    paused."
-#define MSG_RESTART "\royainput: restarted."
+#define MSG_PAUSED  "\rnginput:    paused."
+#define MSG_RESTART "\rnginput: restarted."
 
 
 
@@ -107,7 +107,7 @@ void set_inputdevice_path(char* new_devpath) {
 
 void on_sigterm(int signal) {
 	UNUSED_VARIABLE(signal);
-	printf("\royainput terminated.\n");
+	printf("\rnginput terminated.\n");
 	do_terminate = 1;
 }
 
@@ -171,7 +171,7 @@ void create_user_input() {
 
 	struct uinput_user_dev uidev;
 	memset(&uidev, 0, sizeof(uidev));
-	snprintf(uidev.name, UINPUT_MAX_NAME_SIZE, "oyainput");
+	snprintf(uidev.name, UINPUT_MAX_NAME_SIZE, "nginput");
 	uidev.id.bustype = BUS_USB;
 	uidev.id.vendor  = 0x1;
 	uidev.id.product = 0x1;
@@ -189,7 +189,7 @@ int main(int argc, char *argv[]) {
 
 	// check duplicate running
 	if (exist_previous()) {
-		die("error: oyainput is already running!");
+		die("error: nginput is already running!");
 	}
 
 	uid_t euid = geteuid();
@@ -217,7 +217,7 @@ int main(int argc, char *argv[]) {
 
 	char confpath[BUFSIZE+1] = {};
 	strncpy(confpath, pw->pw_dir, BUFSIZE);
-	strcat(confpath, "/.oyainputconf");
+	strcat(confpath, "/.nginputconf");
 
 	// load config file.
 	if (! exist_file(confpath)) {
@@ -303,7 +303,7 @@ int main(int argc, char *argv[]) {
 	OYAYUBI_EVENT oe;
 
 	do_terminate = 0;
-	printf("oyainput running...(CTRL+C to exit)\n");
+	printf("nginput running...(CTRL+C to exit)\n");
 
 	sigset_t sigset;
 	sigemptyset(&sigset);

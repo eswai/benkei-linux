@@ -60,6 +60,16 @@ void output_char(unsigned int code) {
 	send_event(EV_SYN, SYN_REPORT, 0);
 }
 
+void press_key(unsigned int code) {
+	send_event(EV_KEY, code, 1);
+	send_event(EV_SYN, SYN_REPORT, 0);
+}
+
+void release_key(unsigned int code) {
+	send_event(EV_KEY, code, 0);
+	send_event(EV_SYN, SYN_REPORT, 0);
+}
+
 void put_romaji(ROMAJI_INFO ri) {
 	if (ri.outCode1 == KEY_LEFTSHIFT) {
 		send_event(EV_KEY, KEY_LEFTSHIFT, 1);

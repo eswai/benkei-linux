@@ -8,7 +8,7 @@
 
 #include "nglist.h"
 #include "nglistarray.h"
-// #include "naginata_func.h"
+#include "naginata_func.h"
 #include "naginata_v16.h"
 
 extern int64_t timestamp;
@@ -20,7 +20,7 @@ static NGListArray nginput;
 static int pressed_keys = 0UL; // 押しているキーのビットをたてる
 static int8_t n_pressed_keys = 0;   // 押しているキーの数
 
-# https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
+// https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h
 
 static const int ng_key[] = {
     [KEY_A - KEY_Q] = B_A,     [KEY_B - KEY_Q] = B_B,         [KEY_C - KEY_Q] = B_C,         [KEY_D - KEY_Q] = B_D,
@@ -221,76 +221,76 @@ static naginata_kanamap ngdickana[] = {
     {.shift = NONE    , .douji = B_U            , .kana = {KEY_BACKSPACE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE   }, .func = nofunc},
 
     {.shift = NONE    , .douji = B_V|B_M        , .kana = {KEY_ENTER, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE  }, .func = nofunc}, // enter
-    // {.shift = B_SPACE, .douji = B_V|B_M, .kana = {ENTER, NONE, NONE, NONE, NONE, NONE}, .func = nofunc}, // enter+シフト(連続シフト)
+    {.shift = B_SPACE , .douji = B_V|B_M        , .kana = {KEY_ENTER, NONE, NONE, NONE, NONE, NONE  }, .func = nofunc}, // enter+シフト(連続シフト)
 
-    // {.shift = NONE    , .douji = B_T            , .kana = {NONE, NONE, NONE, NONE, NONE, NONE   }, .func = ng_T}, //
-    // {.shift = NONE    , .douji = B_Y            , .kana = {NONE, NONE, NONE, NONE, NONE, NONE   }, .func = ng_Y}, //
-    // {.shift = B_SPACE , .douji = B_T            , .kana = {NONE, NONE, NONE, NONE, NONE, NONE   }, .func = ng_ST}, //
-    // {.shift = B_SPACE , .douji = B_Y            , .kana = {NONE, NONE, NONE, NONE, NONE, NONE   }, .func = ng_SY}, //
-    // {.shift = NONE    , .douji = B_H|B_J        , .kana = {NONE, NONE, NONE, NONE, NONE, NONE   }, .func = naginata_on}, // 　かなオン
-    // // {.shift = NONE, .douji = B_F | B_G, .kana = {NONE, NONE, NONE, NONE, NONE, NONE}, .func = naginata_off}, // 　かなオフ
+    {.shift = NONE    , .douji = B_T            , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE   }, .func = ng_T}, //
+    {.shift = NONE    , .douji = B_Y            , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE   }, .func = ng_Y}, //
+    {.shift = B_SPACE , .douji = B_T            , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE   }, .func = ng_ST}, //
+    {.shift = B_SPACE , .douji = B_Y            , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE   }, .func = ng_SY}, //
+    {.shift = NONE    , .douji = B_H|B_J        , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE   }, .func = naginata_on}, // 　かなオン
+    {.shift = NONE    , .douji = B_F|B_G        , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE   }, .func = naginata_off}, // 　かなオフ
 
-    // // 編集モード
-    // {.shift = B_J|B_K    , .douji = B_Q     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKQ    }, // ^{End}
-    // {.shift = B_J|B_K    , .douji = B_W     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKW    }, // ／{改行}
-    // {.shift = B_J|B_K    , .douji = B_E     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKE    }, // /*ディ*/
-    // {.shift = B_J|B_K    , .douji = B_R     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKR    }, // ^s
-    // {.shift = B_J|B_K    , .douji = B_T     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKT    }, // ・
-    // {.shift = B_J|B_K    , .douji = B_A     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKA    }, // ……{改行}
-    // {.shift = B_J|B_K    , .douji = B_S     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKS    }, // 『{改行}
-    // {.shift = B_J|B_K    , .douji = B_D     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKD    }, // ？{改行}
-    // {.shift = B_J|B_K    , .douji = B_F     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKF    }, // 「{改行}
-    // {.shift = B_J|B_K    , .douji = B_G     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKG    }, // ({改行}
-    // {.shift = B_J|B_K    , .douji = B_Z     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKZ    }, // ――{改行}
-    // {.shift = B_J|B_K    , .douji = B_X     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKX    }, // 』{改行}
-    // {.shift = B_J|B_K    , .douji = B_C     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKC    }, // ！{改行}
-    // {.shift = B_J|B_K    , .douji = B_V     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKV    }, // 」{改行}
-    // {.shift = B_J|B_K    , .douji = B_B     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_JKB    }, // ){改行}
-    // {.shift = B_D|B_F    , .douji = B_Y     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFY    }, // {Home}
-    // {.shift = B_D|B_F    , .douji = B_U     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFU    }, // +{End}{BS}
-    // {.shift = B_D|B_F    , .douji = B_I     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFI    }, // {vk1Csc079}
-    // {.shift = B_D|B_F    , .douji = B_O     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFO    }, // {Del}
-    // {.shift = B_D|B_F    , .douji = B_P     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFP    }, // +{Esc 2}
-    // {.shift = B_D|B_F    , .douji = B_H     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFH    }, // {Enter}{End}
-    // {.shift = B_D|B_F    , .douji = B_J     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFJ    }, // {↑}
-    // {.shift = B_D|B_F    , .douji = B_K     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFK    }, // +{↑}
-    // {.shift = B_D|B_F    , .douji = B_L     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFL    }, // +{↑ 7}
-    // {.shift = B_D|B_F    , .douji = B_SEMI  , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFSCLN }, // ^i
-    // {.shift = B_D|B_F    , .douji = B_N     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFN    }, // {End}
-    // {.shift = B_D|B_F    , .douji = B_M     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFM    }, // {↓}
-    // {.shift = B_D|B_F    , .douji = B_COMMA , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFCOMM }, // +{↓}
-    // {.shift = B_D|B_F    , .douji = B_DOT   , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFDOT  }, // +{↓ 7}
-    // {.shift = B_D|B_F    , .douji = B_SLASH , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_DFSLSH }, // ^u
-    // {.shift = B_M|B_COMMA, .douji = B_Q     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCQ    }, // ｜{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_W     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCW    }, // 　　　×　　　×　　　×{改行 2}
-    // {.shift = B_M|B_COMMA, .douji = B_E     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCE    }, // {Home}{→}{End}{Del 2}{←}
-    // {.shift = B_M|B_COMMA, .douji = B_R     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCR    }, // {Home}{改行}{Space 1}{←}
-    // {.shift = B_M|B_COMMA, .douji = B_T     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCT    }, // 〇{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_A     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCA    }, // 《{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_S     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCS    }, // 【{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_D     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCD    }, // {Home}{→}{End}{Del 4}{←}
-    // {.shift = B_M|B_COMMA, .douji = B_F     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCF    }, // {Home}{改行}{Space 3}{←}
-    // {.shift = B_M|B_COMMA, .douji = B_G     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCG    }, // {Space 3}
-    // {.shift = B_M|B_COMMA, .douji = B_Z     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCZ    }, // 》{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_X     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCX    }, // 】{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_C     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCC    }, // 」{改行}{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_V     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCV    }, // 」{改行}{改行}「{改行}
-    // {.shift = B_M|B_COMMA, .douji = B_B     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_MCB    }, // 」{改行}{改行}{Space}
-    // {.shift = B_C|B_V    , .douji = B_Y     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVY    }, // +{Home}
-    // {.shift = B_C|B_V    , .douji = B_U     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVU    }, // ^x
-    // {.shift = B_C|B_V    , .douji = B_I     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVI    }, // {vk1Csc079}
-    // {.shift = B_C|B_V    , .douji = B_O     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVO    }, // ^v
-    // {.shift = B_C|B_V    , .douji = B_P     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVP    }, // ^z
-    // {.shift = B_C|B_V    , .douji = B_H     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVH    }, // ^c
-    // {.shift = B_C|B_V    , .douji = B_J     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVJ    }, // {←}
-    // {.shift = B_C|B_V    , .douji = B_K     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVK    }, // {→}
-    // {.shift = B_C|B_V    , .douji = B_L     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVL    }, // {改行}{Space}+{Home}^x{BS}
-    // {.shift = B_C|B_V    , .douji = B_SEMI  , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVSCLN }, // ^y
-    // {.shift = B_C|B_V    , .douji = B_N     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVN    }, // +{End}
-    // {.shift = B_C|B_V    , .douji = B_M     , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVM    }, // +{←}
-    // {.shift = B_C|B_V    , .douji = B_COMMA , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVCOMM }, // +{→}
-    // {.shift = B_C|B_V    , .douji = B_DOT   , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVDOT  }, // +{← 7}
-    // {.shift = B_C|B_V    , .douji = B_SLASH , .kana = {NONE, NONE, NONE, NONE, NONE, NONE} , .func = ngh_CVSLSH }, // +{→ 7}
+    // 編集モード
+    {.shift = B_J|B_K    , .douji = B_Q     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKQ    }, // ^{End}
+    {.shift = B_J|B_K    , .douji = B_W     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKW    }, // ／{改行}
+    {.shift = B_J|B_K    , .douji = B_E     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKE    }, // /*ディ*/
+    {.shift = B_J|B_K    , .douji = B_R     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKR    }, // ^s
+    {.shift = B_J|B_K    , .douji = B_T     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKT    }, // ・
+    {.shift = B_J|B_K    , .douji = B_A     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKA    }, // ……{改行}
+    {.shift = B_J|B_K    , .douji = B_S     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKS    }, // 『{改行}
+    {.shift = B_J|B_K    , .douji = B_D     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKD    }, // ？{改行}
+    {.shift = B_J|B_K    , .douji = B_F     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKF    }, // 「{改行}
+    {.shift = B_J|B_K    , .douji = B_G     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKG    }, // ({改行}
+    {.shift = B_J|B_K    , .douji = B_Z     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKZ    }, // ――{改行}
+    {.shift = B_J|B_K    , .douji = B_X     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKX    }, // 』{改行}
+    {.shift = B_J|B_K    , .douji = B_C     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKC    }, // ！{改行}
+    {.shift = B_J|B_K    , .douji = B_V     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKV    }, // 」{改行}
+    {.shift = B_J|B_K    , .douji = B_B     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_JKB    }, // ){改行}
+    {.shift = B_D|B_F    , .douji = B_Y     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFY    }, // {Home}
+    {.shift = B_D|B_F    , .douji = B_U     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFU    }, // +{End}{BS}
+    {.shift = B_D|B_F    , .douji = B_I     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFI    }, // {vk1Csc079}
+    {.shift = B_D|B_F    , .douji = B_O     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFO    }, // {Del}
+    {.shift = B_D|B_F    , .douji = B_P     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFP    }, // +{Esc 2}
+    {.shift = B_D|B_F    , .douji = B_H     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFH    }, // {Enter}{End}
+    {.shift = B_D|B_F    , .douji = B_J     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFJ    }, // {↑}
+    {.shift = B_D|B_F    , .douji = B_K     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFK    }, // +{↑}
+    {.shift = B_D|B_F    , .douji = B_L     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFL    }, // +{↑ 7}
+    {.shift = B_D|B_F    , .douji = B_SEMI  , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFSCLN }, // ^i
+    {.shift = B_D|B_F    , .douji = B_N     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFN    }, // {End}
+    {.shift = B_D|B_F    , .douji = B_M     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFM    }, // {↓}
+    {.shift = B_D|B_F    , .douji = B_COMMA , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFCOMM }, // +{↓}
+    {.shift = B_D|B_F    , .douji = B_DOT   , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFDOT  }, // +{↓ 7}
+    {.shift = B_D|B_F    , .douji = B_SLASH , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_DFSLSH }, // ^u
+    {.shift = B_M|B_COMMA, .douji = B_Q     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCQ    }, // ｜{改行}
+    {.shift = B_M|B_COMMA, .douji = B_W     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCW    }, // 　　　×　　　×　　　×{改行 2}
+    {.shift = B_M|B_COMMA, .douji = B_E     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCE    }, // {Home}{→}{End}{Del 2}{←}
+    {.shift = B_M|B_COMMA, .douji = B_R     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCR    }, // {Home}{改行}{Space 1}{←}
+    {.shift = B_M|B_COMMA, .douji = B_T     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCT    }, // 〇{改行}
+    {.shift = B_M|B_COMMA, .douji = B_A     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCA    }, // 《{改行}
+    {.shift = B_M|B_COMMA, .douji = B_S     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCS    }, // 【{改行}
+    {.shift = B_M|B_COMMA, .douji = B_D     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCD    }, // {Home}{→}{End}{Del 4}{←}
+    {.shift = B_M|B_COMMA, .douji = B_F     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCF    }, // {Home}{改行}{Space 3}{←}
+    {.shift = B_M|B_COMMA, .douji = B_G     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCG    }, // {Space 3}
+    {.shift = B_M|B_COMMA, .douji = B_Z     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCZ    }, // 》{改行}
+    {.shift = B_M|B_COMMA, .douji = B_X     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCX    }, // 】{改行}
+    {.shift = B_M|B_COMMA, .douji = B_C     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCC    }, // 」{改行}{改行}
+    {.shift = B_M|B_COMMA, .douji = B_V     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCV    }, // 」{改行}{改行}「{改行}
+    {.shift = B_M|B_COMMA, .douji = B_B     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_MCB    }, // 」{改行}{改行}{Space}
+    {.shift = B_C|B_V    , .douji = B_Y     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVY    }, // +{Home}
+    {.shift = B_C|B_V    , .douji = B_U     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVU    }, // ^x
+    {.shift = B_C|B_V    , .douji = B_I     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVI    }, // {vk1Csc079}
+    {.shift = B_C|B_V    , .douji = B_O     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVO    }, // ^v
+    {.shift = B_C|B_V    , .douji = B_P     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVP    }, // ^z
+    {.shift = B_C|B_V    , .douji = B_H     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVH    }, // ^c
+    {.shift = B_C|B_V    , .douji = B_J     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVJ    }, // {←}
+    {.shift = B_C|B_V    , .douji = B_K     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVK    }, // {→}
+    {.shift = B_C|B_V    , .douji = B_L     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVL    }, // {改行}{Space}+{Home}^x{BS}
+    {.shift = B_C|B_V    , .douji = B_SEMI  , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVSCLN }, // ^y
+    {.shift = B_C|B_V    , .douji = B_N     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVN    }, // +{End}
+    {.shift = B_C|B_V    , .douji = B_M     , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVM    }, // +{←}
+    {.shift = B_C|B_V    , .douji = B_COMMA , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVCOMM }, // +{→}
+    {.shift = B_C|B_V    , .douji = B_DOT   , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVDOT  }, // +{← 7}
+    {.shift = B_C|B_V    , .douji = B_SLASH , .kana = {KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE, KEY_NONE} , .func = ngh_CVSLSH }, // +{→ 7}
 
 };
 
@@ -466,8 +466,8 @@ bool naginata_press(OYAYUBI_EVENT ev) {
         }
 
         // 連続シフト
-        static int rs[10][2] = {{KEY_D, KEY_F},     {KEY_C, KEY_V}, {KEY_J, KEY_K}, {KEY_M, KEY_COMMA}, {KEY_SPACE, 0},
-                                     {KEY_ENTER, 0}, {KEY_F, 0}, {KEY_V, 0}, {KEY_J, 0},     {KEY_M, 0}};
+        static int rs[10][2] = {{KEY_D, KEY_F}, {KEY_C, KEY_V}, {KEY_J, KEY_K}, {KEY_M, KEY_COMMA}, {KEY_SPACE, 0},
+                                     {KEY_ENTER, 0}, {KEY_F, 0}, {KEY_V, 0}, {KEY_J, 0}, {KEY_M, 0}};
 
         int keyset = 0UL;
         for (int i = 0; i < nginput.elements[0].size; i++) {

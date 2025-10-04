@@ -12,3 +12,5 @@ void put_romaji(ROMAJI_INFO ri);
 int trim(char *s);
 Boolean exist_file(char *path);
 Boolean find_kbdevent_info(KBDDEVINFO *devs, int* devcnt, int maxdevs);
+void press_key(unsigned int code);
+void release_key(unsigned int code);

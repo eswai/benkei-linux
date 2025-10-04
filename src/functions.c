@@ -110,7 +110,7 @@ Boolean is_fcitx_on(char *home_dir) {
 	uid_t euid = getegid();
 
 	char cmd[BUFSIZE];
-	if (snprintf(cmd, BUFSIZE, "HOME=%s fcitx-remote", home_dir) > BUFSIZE) {
+	if (snprintf(cmd, BUFSIZE, "HOME=%s fcitx5-remote", home_dir) > BUFSIZE) {
 		die("error: Username is too long.");
 	}
 

@@ -266,7 +266,7 @@ int main(int argc, char *argv[]) {
 	strncat(devpath, devs[usedevno].devno, 2);
 
 	if (get_imtype() == 1 &&
-		0 != system("type fcitx-remote > /dev/null")) {
+		0 != system("type fcitx5-remote > /dev/null")) {
 		die("error: fcitx is not installed!");
 	} else if (get_imtype() == 2 &&
 		0 != system("type ibus > /dev/null")) {

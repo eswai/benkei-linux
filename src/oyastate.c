@@ -10,11 +10,11 @@
 // 平手（ノーマル）状態での配列定義
 KEYMAP_INFO oyakanaTableRomajiDefault[] = {
 	// 左手最上段 １２３４５
-	{KEY_1, MOJI_1},
-	{KEY_2, MOJI_2},
-	{KEY_3, MOJI_3},
-	{KEY_4, MOJI_4},
-	{KEY_5, MOJI_5},
+	// {KEY_1, MOJI_1},
+	// {KEY_2, MOJI_2},
+	// {KEY_3, MOJI_3},
+	// {KEY_4, MOJI_4},
+	// {KEY_5, MOJI_5},
 
 	// 左手上段 。かたこさ
 	{KEY_Q, MOJI_PERIOD},
@@ -38,13 +38,13 @@ KEYMAP_INFO oyakanaTableRomajiDefault[] = {
 	{KEY_B, MOJI_HE},
 
 	// 右手最上段 ６７８９０－ ゜
-	{KEY_6, MOJI_6},
-	{KEY_7, MOJI_7},
-	{KEY_8, MOJI_8},
-	{KEY_9, MOJI_9},
-	{KEY_0, MOJI_0},
-	{KEY_MINUS, MOJI_MINUS},
-	{KEY_EQUAL, MOJI_HANDAKUTEN},
+	// {KEY_6, MOJI_6},
+	// {KEY_7, MOJI_7},
+	// {KEY_8, MOJI_8},
+	// {KEY_9, MOJI_9},
+	// {KEY_0, MOJI_0},
+	// {KEY_MINUS, MOJI_MINUS},
+	// {KEY_EQUAL, MOJI_HANDAKUTEN},
 
 	// 右手上段 らちくつ、、
 	{KEY_Y, MOJI_RA},
@@ -52,7 +52,7 @@ KEYMAP_INFO oyakanaTableRomajiDefault[] = {
 	{KEY_I, MOJI_KU},
 	{KEY_O, MOJI_TU},
 	{KEY_P, MOJI_COMMA},
-	{KEY_LEFTBRACE, MOJI_COMMA},
+	// {KEY_LEFTBRACE, MOJI_COMMA},
 
 	// 右手中段 はときいん[BS]
 	{KEY_H, MOJI_HA},
@@ -60,7 +60,7 @@ KEYMAP_INFO oyakanaTableRomajiDefault[] = {
 	{KEY_K, MOJI_KI},
 	{KEY_L, MOJI_I},
 	{KEY_SEMICOLON, MOJI_NN},
-	{KEY_APOSTROPHE, MOJI_BS},
+	// {KEY_APOSTROPHE, MOJI_BS},
 
 	// 右手下段 めそねほ・
 	{KEY_N, MOJI_ME},
@@ -73,11 +73,11 @@ KEYMAP_INFO oyakanaTableRomajiDefault[] = {
 // 左親指キー押し下げ時の配列定義
 KEYMAP_INFO oyakanaLTableRomajiDefault[] = {
 	// 左手最上段 ？／～「」
-	{KEY_1, MOJI_QUESTION},
-	{KEY_2, MOJI_SLASH},
-	{KEY_3, MOJI_TILDE},
-	{KEY_4, MOJI_LKAKKO},
-	{KEY_5, MOJI_RKAKKO},
+	// {KEY_1, MOJI_QUESTION},
+	// {KEY_2, MOJI_SLASH},
+	// {KEY_3, MOJI_TILDE},
+	// {KEY_4, MOJI_LKAKKO},
+	// {KEY_5, MOJI_RKAKKO},
 
 	// 左手上段  ぁえりゃれ
 	{KEY_Q, MOJI_XA},
@@ -101,12 +101,12 @@ KEYMAP_INFO oyakanaLTableRomajiDefault[] = {
 	{KEY_B, MOJI_XI},
 
 	// 右手最上段 「」（）｛｝
-	{KEY_6, MOJI_LBRACKET},
-	{KEY_7, MOJI_RBRACKET},
-	{KEY_8, MOJI_LPAREN},
-	{KEY_9, MOJI_RPAREN},
-	{KEY_0, MOJI_LKAGI},
-	{KEY_MINUS, MOJI_RKAGI},
+	// {KEY_6, MOJI_LBRACKET},
+	// {KEY_7, MOJI_RBRACKET},
+	// {KEY_8, MOJI_LPAREN},
+	// {KEY_9, MOJI_RPAREN},
+	// {KEY_0, MOJI_LKAGI},
+	// {KEY_MINUS, MOJI_RKAGI},
 
 	// 右手上段 ぱぢぐづぴ
 	{KEY_Y, MOJI_PA},
@@ -114,8 +114,8 @@ KEYMAP_INFO oyakanaLTableRomajiDefault[] = {
 	{KEY_I, MOJI_GU},
 	{KEY_O, MOJI_DU},
 	{KEY_P, MOJI_PI},
-	{KEY_LEFTBRACE, MOJI_COMMA},
-	{KEY_RIGHTBRACE, MOJI_COMMA},
+	// {KEY_LEFTBRACE, MOJI_COMMA},
+	// {KEY_RIGHTBRACE, MOJI_COMMA},
 
 	// 右手中段 ばどぎぽ
 	{KEY_H, MOJI_BA},
@@ -133,11 +133,11 @@ KEYMAP_INFO oyakanaLTableRomajiDefault[] = {
 // 右親指キー押し下げ時の配列定義
 KEYMAP_INFO oyakanaRTableRomajiDefault[] = {
 	// 左手最上段 ？・～「」
-	{KEY_1, MOJI_QUESTION},
-	{KEY_2, MOJI_SLASH},
-	{KEY_3, MOJI_TILDE},
-	{KEY_4, MOJI_LKAKKO},
-	{KEY_5, MOJI_RKAKKO},
+	// {KEY_1, MOJI_QUESTION},
+	// {KEY_2, MOJI_SLASH},
+	// {KEY_3, MOJI_TILDE},
+	// {KEY_4, MOJI_LKAKKO},
+	// {KEY_5, MOJI_RKAKKO},
 
 	// 左手上段  。がだござ
 	{KEY_Q, MOJI_PERIOD},
@@ -161,12 +161,12 @@ KEYMAP_INFO oyakanaRTableRomajiDefault[] = {
 	{KEY_B, MOJI_BE},
 
 	// 右手最上段 〔〕（）『』
-	{KEY_6, MOJI_LBRACKET},
-	{KEY_7, MOJI_RBRACKET},
-	{KEY_8, MOJI_LPAREN},
-	{KEY_9, MOJI_RPAREN},
-	{KEY_0, MOJI_LKAGI},
-	{KEY_MINUS, MOJI_RKAGI},
+	// {KEY_6, MOJI_LBRACKET},
+	// {KEY_7, MOJI_RBRACKET},
+	// {KEY_8, MOJI_LPAREN},
+	// {KEY_9, MOJI_RPAREN},
+	// {KEY_0, MOJI_LKAGI},
+	// {KEY_MINUS, MOJI_RKAGI},
 
 	// 右手上段 よにるまぇ
 	{KEY_Y, MOJI_YO},

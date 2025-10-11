@@ -463,11 +463,6 @@ int main(int argc, char *argv[]) {
 				ime_on = is_imeon(pw->pw_dir);
 			}
 
-			if (! ime_on) {
-				write(fdo, &ie, sizeof(ie));
-				break;
-			}
-
 			memset(&oe, 0, sizeof(oe));
 			oe.eventType = ET_KEYDOWN;
 			oe.isRepeat = 0;
@@ -478,6 +473,14 @@ int main(int argc, char *argv[]) {
 				oe.isRepeat = 1;
 			}
 			oe.keyCode = ie.code;
+
+			if (! ime_on) {
+				if (enable_naginata(oe)) {
+					write(fdo, &ie, sizeof(ie));
+				}
+				break;
+			}
+
 			handle_naginata_event(oe);
 			break;
 		}

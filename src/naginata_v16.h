@@ -57,5 +57,6 @@ bool naginata_press(OYAYUBI_EVENT ev);
 bool naginata_release(OYAYUBI_EVENT ev);
 void nofunc(void);
 void handle_naginata_event(OYAYUBI_EVENT ev);
+bool enable_naginata(OYAYUBI_EVENT ev);
 
 #endif // NAGINATA_V16_H

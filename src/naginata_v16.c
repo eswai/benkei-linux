@@ -570,3 +570,54 @@ void handle_naginata_event(OYAYUBI_EVENT ev) {
 // };
 
 void nofunc() {}
+
+int fghj_buf = 0; // J/K/F/Gのバッファ
+int nkeypress = 0; // 薙刀式のキー押下数
+
+// 薙刀式のオンオフ
+bool enable_naginata(OYAYUBI_EVENT ev) {
+  // キープレス
+  if (ev.eventType == ET_KEYDOWN) {
+    nkeypress++;
+    // 1キー目、JKの前に他のキーを押していないこと
+    if (fghj_buf == 0 && nkeypress == 1) {
+      // かなオンキーの場合
+      if (ev.keyCode == KEY_H || ev.keyCode == KEY_J || ev.keyCode == KEY_F || ev.keyCode == KEY_G) {
+        fghj_buf = ev.keyCode;
+        return false;
+      }
+    // ２キー目
+    } else {
+      // ２キー目、１キー目、両方ともかなオンキー
+      if ((ev.keyCode == KEY_H && fghj_buf == KEY_J) || (ev.keyCode == KEY_J && fghj_buf == KEY_H)) {
+        naginata_on();
+        fghj_buf = 0;
+        nkeypress = 0;
+        return false;
+      } else if ((ev.keyCode == KEY_F && fghj_buf == KEY_G) || (ev.keyCode == KEY_G && fghj_buf == KEY_F)) {
+        naginata_off();
+        fghj_buf = 0;
+        nkeypress = 0;
+        return false;
+      // ２キー目はかなオンキーではない
+      } else {
+        output_char(fghj_buf); // 1キー目を出力
+        fghj_buf = 0;
+        nkeypress = 0;
+        return true; // 2キー目はQMKにまかせる
+      }
+    }
+  } else {
+    nkeypress = 0;
+    // J/K単押しだった
+    if (fghj_buf > 0) {
+      output_char(fghj_buf);
+      fghj_buf = 0;
+
+      return false;
+    }
+  }
+
+  fghj_buf = 0;
+  return true;
+}

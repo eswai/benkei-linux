@@ -11,10 +11,12 @@
 
 // 薙刀式をオン
 void naginata_on(void) {
+    system("fcitx5-remote -o");
 }
 
 // 薙刀式をオフ
 void naginata_off(void) {
+    system("fcitx5-remote -c");
 }
 
 void input_unicode_hex(int n1, int n2, int n3, int n4) {

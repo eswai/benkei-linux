@@ -441,6 +441,7 @@ void ng_end() {
 }
 
 void ng_katakana() {
+    output_char(KEY_F7);
 }
 
 void ng_save() {
@@ -450,6 +451,7 @@ void ng_save() {
 }
 
 void ng_hiragana() {
+    output_char(KEY_F6);
 }
 
 void ng_redo() {

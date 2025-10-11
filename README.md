@@ -4,9 +4,7 @@ Benkei for Linuxは大岡俊彦氏が考案されたかな入力方式「薙刀�
 
 http://oookaworks.seesaa.net/article/456099128.html
 
-MozcやAnthy、libkccなど、主要な日本語入力システムに対応します。 
-インプットメソッドフレームワークはfcitx5を想定していますが、ibusやuimでも利用可能です。
-開発はOmarchy (Arch Linux) とfcitx5で動作確認しています。
+fcitx5とmozcを想定しています。ibusやuimでも利用可能ですが、薙刀式の一部の機能に対応していません。
 
 # インストール方法
   
